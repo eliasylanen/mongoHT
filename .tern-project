@@ -1,0 +1,23 @@
+{
+  "ecmaVersion": 6,
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "loadEagerly": [
+    "gulpfile.js"
+  ],
+  "dontLoad": [
+    "node_modules/"
+  ],
+  "plugins": {
+    "node": {},
+    "node-express": {},
+    "angular": {},
+    "requirejs": {},
+    "modules": {},
+    "es_modules": {},
+    "node-mongodb-native": {},
+    "node-mongoose": {}
+  }
+}
