@@ -7,13 +7,11 @@ const app = express();
 app
   .use(express.static('client'))
 
-  .use((req, res, next) => {
-    dbTools.mongoClient.connect(dbTools.url, (err, db) => {
-      if (err) next('Error connecting to db');
-      console.log('Connected to db');
-      next();
-    });
-  })
+  .get('/', dbTools.getLangs)
+  .get('/:lang', dbTools.getPoemsByLang)
+  .get('/authors/:id', dbTools.getAuthor)
+  .get('/translations/:id', dbTools.getTranslations)
+  .get('/comments/:id', dbTools.getComments)
 
   .use((err, req, res, next) => {
     console.log(err);
