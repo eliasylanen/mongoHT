@@ -30,8 +30,14 @@ function fetchLang(headerWrapper) {
           for (const data of test.msg) {
             const poemDiv = document.createElement('div');
             const poemH = document.createElement('h1');
+            const poemContent = document.createElement('p');
+            poemContent.style.display = 'none';
             poemH.textContent = `${data.title}`;
+            for (const row of data.content) {
+              poemContent.innerHTML += `${row}<br />`;
+            }
             poemDiv.appendChild(poemH);
+            poemDiv.appendChild(poemContent);
             headerWrapper.appendChild(poemDiv);
           }
         });
