@@ -5,7 +5,13 @@ fetch('/langs')
   .then(test => {
     testdata = test.msg;
     for (const data of testdata) {
-      document.getElementById('test').innerHTML += `${data._id} `;
+      const langLink = document.createElement('BUTTON');
+      const langWrap = document.getElementById('lang-wrap');
+      // langLink = langLink.innerHTML += `${data._id}(${data.count}) `;
+      const langLinkContent = document.createTextNode(`${data._id}(${data.count}) `);
+      langLink.value = data._id.toLowerCase();
+      langLink.appendChild(langLinkContent);
+      langWrap.appendChild(langLink);
     }
   });
 
