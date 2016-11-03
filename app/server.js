@@ -5,10 +5,10 @@ const port = 8000 || process.env.PORT;
 const app = express();
 
 app
-  .use(express.static('client'))
+  .use(express.static('app/client'))
 
-  .get('/', dbTools.getLangs)
-  .get('/:lang', dbTools.getPoemsByLang)
+  .get('/langs', dbTools.getLangs)
+  .get('/langs/:lang', dbTools.getPoemsByLang)
   .get('/authors/:id', dbTools.getAuthor)
   .get('/translations/:id', dbTools.getTranslations)
   .get('/comments/:id', dbTools.getComments)
