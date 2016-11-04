@@ -10,7 +10,8 @@ app
   .get('/langs', dbTools.getLangs)
   .get('/langs/:lang', dbTools.getPoemsByLang)
   .get('/authors/:id', dbTools.getAuthor)
-  .get('/translations/:id', dbTools.getTranslations)
+  .get('/translations/:id', dbTools.getTranslationsCount)
+  .get('/translations/:id/:lang', dbTools.getTranslations)
   .get('/comments/:id', dbTools.getComments)
 
   .use((err, req, res, next) => {

@@ -9,6 +9,7 @@ module.exports = {
   getLangs,
   getPoemsByLang,
   getAuthor,
+  getTranslationsCount,
   getTranslations,
   getComments,
 };
@@ -76,13 +77,40 @@ function getAuthor(req, res, next) {
   });
 }
 
+function getTranslationsCount(req, res, next) {
+  mongoClient.connect(url, (err, db) => {
+    if (err) {
+      db.close();
+      next({ success: false, msg: 'Error connecting to db' });
+    }
+    db.collection(`translations_${req.params.id}`).aggregate([
+      {
+        $group: {
+          _id: '$lang',
+          count: { $sum: 1 },
+        },
+      },
+    ]).toArray()
+      .then(data => {
+        res.json({ success: true, msg: data });
+        db.close();
+      })
+      .catch(queryErr => {
+        db.close();
+        next({ success: false, msg: queryErr });
+      });
+  });
+}
+
 function getTranslations(req, res, next) {
   mongoClient.connect(url, (err, db) => {
     if (err) {
       db.close();
       next({ success: false, msg: 'Error connecting to db' });
     }
-    db.collection(`translations_${req.params.id}`).find({}).toArray()
+    db.collection(`translations_${req.params.id}`)
+    .find({ lang: req.params.lang })
+    .toArray()
       .then(data => {
         res.json({ success: true, msg: data });
         db.close();
